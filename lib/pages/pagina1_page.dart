@@ -9,16 +9,27 @@ class Pagina1Page extends StatelessWidget {
       appBar: AppBar(
         title: Text('Pagina 1'),
       ),
-      body: StreamBuilder(
-        stream: usuarioService.usuarioStream,
-        builder: (BuildContext context, AsyncSnapshot<Usuario> snapshot) {
-          print(snapshot.data);
-          return snapshot.hasData
-              ? InformacionUsuario(snapshot.data)
-              : Center(
-                  child: Text('No hay informacion del usuario'),
-                );
-        },
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Text('Datos del usuario'),
+          ),
+          Flexible(
+            child: StreamBuilder(
+              stream: usuarioService.usuarioStream,
+              builder: (BuildContext context, AsyncSnapshot<Usuario> snapshot) {
+                print(snapshot.data);
+                return snapshot.hasData
+                    ? InformacionUsuario(snapshot.data)
+                    : Center(
+                        child: Text('No hay informacion del usuario'),
+                      );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
